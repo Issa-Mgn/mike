@@ -1,0 +1,50 @@
+/* 
+  MIKE — Design System "Dossier d'Investigation"
+  Minimaliste : noir/blanc/transparent sur Ferrofluid animé
+*/
+
+:root {
+  /* Fonds */
+  --bg-white: #FFFFFF;         /* Blanc - sections de contenu qui ont besoin de contraste */
+  --bg-glass: rgba(255, 255, 255, 0.95); /* Blanc semi-transparent - effet verre */
+  --bg-dark-glass: rgba(23, 18, 28, 0.85); /* Noir semi-transparent */
+  
+  /* Texte */
+  --text-light: #FFFFFF;       /* Texte blanc sur fond sombre/Ferrofluid */
+  --text-dark: #17121C;        /* Texte noir sur fond blanc */
+  
+  /* Accents (du Ferrofluid) */
+  --accent-magenta: #D946EF;   /* Magenta vif - CTA principal, hover, actif */
+  --accent-violet: #9333EA;    /* Violet - tampons de note, badges secondaires, bordures */
+  --accent-lilac: #E9B8F5;     /* Lilas clair - accents discrets, tics de langage */
+  
+  /* Alias pour compatibilité */
+  --bg: transparent;           /* Par défaut transparent pour voir le Ferrofluid */
+  --ink: var(--text-dark);
+  --accent-primary: var(--accent-magenta);
+  --accent-secondary: var(--accent-violet);
+  --stamp-color: var(--accent-violet);
+  --tag-bg: rgba(233, 184, 245, 0.1);
+  --tag-border: var(--accent-lilac);
+  
+  /* Typographie */
+  --font-display: 'Fraunces', serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+  
+  /* Espacements */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4rem;
+  
+  /* Bordures */
+  --border-width: 2px;
+  --border-radius: 4px;
+  
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s ease;
+}

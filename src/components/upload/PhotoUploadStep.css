@@ -1,0 +1,248 @@
+/* BASE MOBILE */
+.photo-upload-step {
+  width: 100%;
+  min-height: 100vh;
+  background: #e6e8ec;
+  display: flex;
+  flex-direction: column;
+}
+
+.photo-globe-section {
+  width: 100%;
+  height: 40vh;
+  min-height: 300px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.photo-content-section {
+  width: 100%;
+  flex: 1;
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.photo-content-wrapper {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.photo-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  text-align: center;
+}
+
+.photo-title {
+  font-family: serif;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.photo-header-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.photo-subtitle {
+  font-family: sans-serif;
+  font-size: 0.9rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.photo-skip-btn-inline {
+  background: #e6e8ec;
+  color: #64748b;
+  border: none;
+  padding: 6px 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 20px;
+  box-shadow: 4px 4px 8px rgba(163, 177, 198, 0.6),
+              -4px -4px 8px rgba(255, 255, 255, 0.9);
+}
+
+.photo-main-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.photo-upload-label-main {
+  cursor: pointer;
+}
+
+.photo-input-hidden {
+  display: none;
+}
+
+.photo-upload-text-main {
+  display: inline-block;
+  background: #e6e8ec;
+  color: #1e293b;
+  padding: 12px 28px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  border-radius: 30px;
+  box-shadow: 6px 6px 12px rgba(163, 177, 198, 0.6),
+              -6px -6px 12px rgba(255, 255, 255, 0.9);
+}
+
+.photo-preview-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.photo-preview-card {
+  background: #e6e8ec;
+  border-radius: 24px;
+  padding: 1rem;
+  box-shadow: 8px 8px 16px rgba(163, 177, 198, 0.6),
+              -8px -8px 16px rgba(255, 255, 255, 0.9);
+  max-width: 400px;
+  width: 100%;
+}
+
+.photo-preview-image {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  object-fit: contain;
+  border-radius: 16px;
+  display: block;
+}
+
+.photo-actions {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  max-width: 400px;
+  flex-wrap: wrap;
+}
+
+.photo-change-btn {
+  flex: 1;
+  min-width: 150px;
+  background: #e6e8ec;
+  color: #64748b;
+  border: none;
+  padding: 12px 24px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 16px;
+  box-shadow: 6px 6px 12px rgba(163, 177, 198, 0.6),
+              -6px -6px 12px rgba(255, 255, 255, 0.9);
+  transition: all 0.3s ease;
+}
+
+
+.photo-continue-btn {
+  flex: 1;
+  min-width: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(59, 130, 246, 0.3);
+  transition: all 0.3s ease;
+}
+
+
+/* LAYOUT DESKTOP CORRIGÉ */
+@media (min-width: 1024px) {
+  .photo-upload-step {
+    flex-direction: row;
+    align-items: stretch;
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  .photo-globe-section {
+    flex: 0 0 50%;
+    width: 50%;
+    height: 100vh;
+    min-height: auto;
+  }
+
+  .photo-content-section {
+    flex: 0 0 50%;
+    width: 50%;
+    padding: 3rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .photo-content-wrapper {
+    max-width: 600px;
+  }
+
+  .photo-title {
+    font-size: 2.5rem;
+  }
+
+  .photo-header {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .photo-header-bottom {
+    justify-content: flex-start;
+  }
+
+  .photo-preview-card {
+    max-width: 500px;
+  }
+
+  .photo-actions {
+    max-width: 500px;
+  }
+}
+
+/* Responsive mobile */
+@media (max-width: 768px) {
+  .photo-actions {
+    flex-direction: column;
+  }
+
+  .photo-change-btn,
+  .photo-continue-btn {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .photo-preview-card {
+    max-width: 100%;
+  }
+}

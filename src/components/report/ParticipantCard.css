@@ -1,0 +1,185 @@
+:root {
+  --neo-bg: #e6e8ec;
+  --neo-shadow-soft: rgba(163, 177, 198, 0.6);
+  --neo-shadow-white: rgba(255, 255, 255, 0.9);
+  --text-main: #1e293b;
+  --accent-secondary: #64748b;
+}
+
+/* Carte principale */
+.participant-card {
+  background: var(--neo-bg);
+  border-radius: 20px;
+  padding: var(--space-xl, 1.5rem);
+  position: relative;
+  margin-top: var(--space-md, 1rem);
+  box-shadow: 8px 8px 16px var(--neo-shadow-soft),
+             -8px -8px 16px var(--neo-shadow-white);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Tab Dossier N° */
+.dossier-tab {
+  align-self: flex-start;
+  background: var(--neo-bg);
+  color: var(--text-main);
+  padding: 0.35rem 0.85rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  border-radius: 8px;
+  box-shadow: 4px 4px 8px var(--neo-shadow-soft),
+             -4px -4px 8px var(--neo-shadow-white);
+}
+
+/* Stamp / Note en relief doux */
+.stamp {
+  min-width: 70px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-family: var(--font-mono, monospace);
+  font-weight: 700;
+  border-radius: 50%;
+  background: var(--neo-bg);
+  box-shadow: 5px 5px 10px var(--neo-shadow-soft),
+             -5px -5px 10px var(--neo-shadow-white);
+}
+
+.stamp.high {
+  color: #10b981;
+}
+
+.stamp.low {
+  color: var(--accent-secondary);
+}
+
+.stamp-note {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.stamp-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+/* Header de la carte */
+.participant-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.participant-name {
+  font-family: var(--font-display, sans-serif);
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-main);
+  margin: 0;
+}
+
+.participant-titre {
+  font-family: var(--font-body, sans-serif);
+  font-size: 0.95rem;
+  color: var(--accent-secondary);
+  font-style: italic;
+  margin-top: 0.25rem;
+}
+
+/* Blocs d'informations encastrés (inset soft) */
+.info-label {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  opacity: 0.6;
+  color: var(--text-main);
+  margin-bottom: 0.4rem;
+  display: block;
+}
+
+.participant-role {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-main);
+  margin: 0;
+}
+
+/* Tics de langage */
+.tics-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0;
+  margin: 0;
+}
+
+.tic-item {
+  background: var(--neo-bg);
+  padding: 0.35rem 0.75rem;
+  font-size: 0.85rem;
+  border-radius: 12px;
+  box-shadow: inset 2px 2px 4px var(--neo-shadow-soft),
+              inset -2px -2px 4px var(--neo-shadow-white);
+  color: var(--text-main);
+}
+
+/* Citation encastrée */
+.citation {
+  background: var(--neo-bg);
+  padding: 1rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.88rem;
+  border-radius: 12px;
+  line-height: 1.6;
+  color: var(--text-main);
+  box-shadow: inset 3px 3px 6px var(--neo-shadow-soft),
+              inset -3px -3px 6px var(--neo-shadow-white);
+}
+
+/* Ratio */
+.ratio {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.justification {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--text-main);
+  margin: 0;
+}
+
+/* Photo du participant */
+.participant-photo {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto var(--space-sm, 0.5rem);
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: inset 4px 4px 8px var(--neo-shadow-soft),
+              inset -4px -4px 8px var(--neo-shadow-white);
+}
+
+.participant-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.participant-identity {
+  text-align: center;
+}

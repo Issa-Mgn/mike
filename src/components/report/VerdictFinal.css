@@ -1,0 +1,44 @@
+.verdict-final-card {
+  background: #e6e8ec;
+  border-radius: 20px;
+  padding: var(--space-2xl, 2.5rem) var(--space-xl, 1.75rem);
+  text-align: center;
+  margin-bottom: var(--space-2xl, 2rem);
+  box-shadow: 8px 8px 16px rgba(163, 177, 198, 0.6),
+             -8px -8px 16px rgba(255, 255, 255, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.verdict-badge {
+  background: #e6e8ec;
+  color: #2563eb;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  box-shadow: inset 3px 3px 6px rgba(163, 177, 198, 0.6),
+              inset -3px -3px 6px rgba(255, 255, 255, 0.9);
+}
+
+.verdict-quote {
+  font-family: var(--font-display, serif);
+  font-size: 1.35rem;
+  font-weight: 600;
+  line-height: 1.8;
+  font-style: italic;
+  color: #1e293b;
+  margin: 0;
+  max-width: 900px;
+}
+
+@media (max-width: 768px) {
+  .verdict-quote {
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+}

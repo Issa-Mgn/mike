@@ -1,0 +1,305 @@
+.upload-page {
+  min-height: 60vh;
+  padding: calc(var(--space-2xl) + 80px) var(--space-md) var(--space-2xl);
+  background: #e6e8ec;
+}
+
+.upload-page-content {
+  max-width: 700px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Header */
+.upload-header {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+  width: 100%;
+}
+
+.upload-page-title {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  text-align: center;
+  margin: 0 0 var(--space-md) 0;
+  text-transform: uppercase;
+  color: #1e293b;
+  line-height: 1.2;
+}
+
+.upload-page-description {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  text-align: center;
+  color: #64748b;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Section principale centrée */
+.upload-main-section {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  align-items: center;
+}
+
+/* Bouton d'aide */
+.help-export-btn {
+  background: #e6e8ec;
+  color: #3b82f6;
+  border: none;
+  padding: var(--space-sm) var(--space-lg);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  box-shadow: 4px 4px 8px rgba(163, 177, 198, 0.6),
+             -4px -4px 8px rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.help-export-btn:hover {
+  box-shadow: 6px 6px 12px rgba(163, 177, 198, 0.7),
+             -6px -6px 12px rgba(255, 255, 255, 1);
+  transform: translateY(-1px);
+}
+
+.help-export-btn:active {
+  box-shadow: inset 3px 3px 6px rgba(163, 177, 198, 0.6),
+              inset -3px -3px 6px rgba(255, 255, 255, 0.9);
+  transform: translateY(0);
+}
+
+/* Bouton d'analyse */
+.analyze-button {
+  background: #e6e8ec;
+  color: #1e293b;
+  border: none;
+  padding: var(--space-md) var(--space-xl);
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  box-shadow: 6px 6px 12px rgba(163, 177, 198, 0.6),
+             -6px -6px 12px rgba(255, 255, 255, 0.9);
+  min-width: 220px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.analyze-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.analyze-button:hover:not(:disabled) {
+  box-shadow: 8px 8px 16px rgba(163, 177, 198, 0.7),
+             -8px -8px 16px rgba(255, 255, 255, 1);
+  transform: translateY(-2px);
+}
+
+.analyze-button:active:not(:disabled),
+.analyze-button.touch-active:not(:disabled) {
+  box-shadow: inset 4px 4px 8px rgba(163, 177, 198, 0.6),
+              inset -4px -4px 8px rgba(255, 255, 255, 0.9);
+  transform: translateY(0);
+}
+
+/* Message d'erreur */
+.upload-error {
+  width: 100%;
+  padding: var(--space-md);
+  background: #e6e8ec;
+  color: #dc2626;
+  text-align: center;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: 12px;
+  box-shadow: inset 4px 4px 8px rgba(163, 177, 198, 0.6),
+              inset -4px -4px 8px rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Modal styles */
+.export-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(230, 232, 236, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: var(--space-md);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.export-modal-content {
+  background: #e6e8ec;
+  border-radius: 24px;
+  padding: var(--space-xl);
+  position: relative;
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 12px 12px 24px rgba(163, 177, 198, 0.6),
+              -12px -12px 24px rgba(255, 255, 255, 0.9);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.export-modal-close {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: #e6e8ec;
+  color: #64748b;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 4px 4px 8px rgba(163, 177, 198, 0.6),
+              -4px -4px 8px rgba(255, 255, 255, 0.9);
+  z-index: 10;
+}
+
+.export-modal-close:hover {
+  box-shadow: 6px 6px 12px rgba(163, 177, 198, 0.7),
+              -6px -6px 12px rgba(255, 255, 255, 1);
+  color: #1e293b;
+}
+
+.export-modal-close:active {
+  box-shadow: inset 3px 3px 6px rgba(163, 177, 198, 0.6),
+              inset -3px -3px 6px rgba(255, 255, 255, 0.9);
+}
+
+/* Responsive - Tablettes */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .upload-page {
+    padding: calc(var(--space-xl) + 80px) var(--space-md) var(--space-xl);
+  }
+
+  .upload-page-title {
+    font-size: 2.2rem;
+  }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+  .upload-page {
+    padding: calc(var(--space-lg) + 70px) var(--space-sm) var(--space-lg);
+  }
+
+  .upload-page-title {
+    font-size: 1.75rem;
+  }
+
+  .upload-page-description {
+    font-size: 0.9rem;
+  }
+
+  .upload-main-section {
+    max-width: 100%;
+  }
+
+  .analyze-button {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .export-modal-content {
+    padding: var(--space-lg);
+    max-height: 85vh;
+  }
+
+  .export-modal-close {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/* Responsive - Très petits écrans */
+@media (max-width: 480px) {
+  .upload-page {
+    padding: calc(var(--space-md) + 60px) var(--space-xs) var(--space-md);
+  }
+
+  .upload-page-title {
+    font-size: 1.5rem;
+  }
+
+  .upload-page-description {
+    font-size: 0.85rem;
+  }
+
+  .analyze-button {
+    padding: var(--space-sm) var(--space-md);
+    font-size: 1rem;
+  }
+
+  .help-export-btn {
+    font-size: 0.9rem;
+    padding: var(--space-xs) var(--space-md);
+  }
+
+  .upload-error {
+    font-size: 0.85rem;
+    padding: var(--space-sm);
+  }
+
+  .export-modal-overlay {
+    padding: var(--space-sm);
+  }
+
+  .export-modal-content {
+    padding: var(--space-md);
+    border-radius: 20px;
+  }
+}

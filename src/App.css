@@ -1,0 +1,419 @@
+/* Layout principal */
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-xl) var(--space-md);
+}
+
+/* Header avec logo Mike */
+.header {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+  border-bottom: 3px solid var(--ink);
+  padding-bottom: var(--space-lg);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.logo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid var(--stamp-color);
+}
+
+.header h1 {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.header .tagline {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--stamp-color);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Zone d'upload */
+.upload-section {
+  background: var(--bg);
+  border: 2px dashed var(--accent-primary);
+  border-radius: 4px;
+  padding: var(--space-xl);
+  text-align: center;
+  margin-bottom: var(--space-xl);
+  transition: border-color 0.2s ease;
+}
+
+.upload-section:hover {
+  border-color: var(--accent-secondary);
+}
+
+.upload-section.dragging {
+  background: var(--tag-bg);
+  border-color: var(--accent-secondary);
+}
+
+.upload-input {
+  display: none;
+}
+
+.upload-button {
+  background: var(--accent-primary);
+  color: white;
+  border: none;
+  padding: var(--space-sm) var(--space-lg);
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background 0.2s ease;
+}
+
+.upload-button:hover {
+  background: var(--accent-secondary);
+}
+
+.upload-button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.file-selected {
+  margin-top: var(--space-sm);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--stamp-color);
+}
+
+/* Loading state */
+.loading {
+  text-align: center;
+  padding: var(--space-xl);
+}
+
+.spinner {
+  border: 4px solid var(--tag-border);
+  border-top: 4px solid var(--accent-primary);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto var(--space-md);
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Error state */
+.error {
+  background: var(--accent-secondary);
+  color: white;
+  padding: var(--space-md);
+  border-radius: 4px;
+  margin-bottom: var(--space-lg);
+  font-family: var(--font-mono);
+}
+
+/* Résultats */
+.results {
+  margin-top: var(--space-xl);
+}
+
+/* Verdict global - note de synthèse */
+.verdict-global {
+  background: var(--bg);
+  border-left: 4px solid var(--accent-primary);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+.verdict-global h2 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  margin-bottom: var(--space-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.verdict-global p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+/* Grille de fiches participants */
+.participants-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+/* Fiche participant - onglet de dossier */
+.participant-card {
+  background: var(--bg);
+  border-left: 3px solid var(--accent-primary);
+  padding: var(--space-lg);
+  position: relative;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Onglet de dossier */
+.dossier-tab {
+  position: absolute;
+  top: -24px;
+  left: var(--space-md);
+  background: var(--accent-primary);
+  color: white;
+  padding: var(--space-xs) var(--space-md);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-radius: 2px 2px 0 0;
+}
+
+.participant-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+.participant-name {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: var(--space-xs);
+}
+
+.participant-titre {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--stamp-color);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Tampon de note - élément signature */
+.stamp {
+  position: relative;
+  width: 70px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  border: 3px solid currentColor;
+  border-radius: 50%;
+  transform: rotate(3deg);
+  flex-shrink: 0;
+}
+
+.stamp.high {
+  color: var(--stamp-color);
+}
+
+.stamp.low {
+  color: var(--accent-secondary);
+}
+
+.stamp-note {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.stamp-label {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Animation du tampon (respecte prefers-reduced-motion) */
+@media (prefers-reduced-motion: no-preference) {
+  .stamp {
+    animation: stampImpact 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+}
+
+@keyframes stampImpact {
+  0% {
+    opacity: 0;
+    transform: rotate(3deg) scale(0.5);
+  }
+  50% {
+    transform: rotate(3deg) scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(3deg) scale(1);
+  }
+}
+
+/* Sections de la fiche */
+.participant-section {
+  margin-bottom: var(--space-md);
+}
+
+.participant-section h4 {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--stamp-color);
+  margin-bottom: var(--space-xs);
+}
+
+.participant-role {
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--accent-secondary);
+}
+
+.tics-list {
+  list-style: none;
+}
+
+.tic-item {
+  background: var(--tag-border);
+  display: inline-block;
+  padding: var(--space-xs) var(--space-sm);
+  margin: 0 var(--space-xs) var(--space-xs) 0;
+  font-size: 0.85rem;
+  border-radius: 2px;
+}
+
+/* Citation - pièce à conviction */
+.citation {
+  background: var(--tag-bg);
+  padding: var(--space-sm);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  border-left: 3px solid var(--accent-primary);
+  margin: var(--space-sm) 0;
+  line-height: 1.6;
+}
+
+.ratio {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+}
+
+.justification {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--ink);
+}
+
+/* Awards - certificats */
+.awards {
+  background: var(--bg);
+  border: 2px solid var(--accent-secondary);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+.awards h2 {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent-secondary);
+  margin-bottom: var(--space-md);
+}
+
+.awards-list {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.award-item {
+  border-left: 3px solid var(--accent-primary);
+  padding-left: var(--space-md);
+}
+
+.award-category {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: var(--space-xs);
+}
+
+.award-winner {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  color: var(--accent-secondary);
+  text-transform: uppercase;
+}
+
+/* Dynamiques cachées */
+.dynamiques {
+  background: var(--tag-bg);
+  border-left: 4px solid var(--stamp-color);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+.dynamiques h2 {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--stamp-color);
+  margin-bottom: var(--space-sm);
+}
+
+.dynamiques p {
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+/* Verdict final - punchline */
+.verdict-final {
+  background: var(--stamp-color);
+  color: white;
+  padding: var(--space-xl);
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.verdict-final h2 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--space-md);
+  opacity: 0.8;
+}
+
+.verdict-final p {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+/* Stats */
+.stats {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--stamp-color);
+  text-align: center;
+  margin-bottom: var(--space-lg);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
