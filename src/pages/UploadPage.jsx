@@ -8,6 +8,7 @@ import PhotoUploadStep from '../components/upload/PhotoUploadStep';
 import AdditionalQuestionsStep from '../components/upload/AdditionalQuestionsStep';
 import AnalyzingState from '../components/upload/AnalyzingState';
 import ExportDemo from '../components/upload/ExportDemo';
+import DailyLimitReached from '../components/upload/DailyLimitReached';
 import useAnalyzeConversation from '../hooks/useAnalyzeConversation';
 import './UploadPage.css';
 
@@ -15,43 +16,88 @@ export default function UploadPage() {
   // Récupérer l'état sauvegardé depuis localStorage
   const savedState = JSON.parse(localStorage.getItem('uploadPageState') || '{}');
   
-  // Si on était en train d'analyser et qu'on refresh, retourner à upload
-  const initialStep = savedState.currentStep === 'analyzing' ? 'upload' : (savedState.currentStep || 'upload');
-  
-  const [currentStep, setCurrentStep] = useState(initialStep);
+  const [currentStep, setCurrentStep] = useState(savedState.currentStep || 'upload');
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedFileName, setSelectedFileName] = useState(savedState.selectedFileName || null);
-  const [conversationStats, setConversationStats] = useState(savedState.conversationStats || null);
-  const [participants, setParticipants] = useState(savedState.participants || []);
   const [photoData, setPhotoData] = useState(savedState.photoData || { photos: {}, previews: {} });
   const [questionAnswers, setQuestionAnswers] = useState(savedState.questionAnswers || null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [dailyLimitReached, setDailyLimitReached] = useState(false);
+  const [limitData, setLimitData] = useState(null);
+  const [checkingLimit, setCheckingLimit] = useState(true);
   
-  const { startAnalysis, waitForAnalysis, analyzing, error } = useAnalyzeConversation();
+  const { startAnalysis, analyzing, results, error, analysisId } = useAnalyzeConversation();
   const navigate = useNavigate();
 
-  // Sauvegarder l'état dans localStorage à chaque changement
+  // Vérifier la limite quotidienne au chargement
   useEffect(() => {
-    const stateToSave = {
-      currentStep,
-      selectedFileName,
-      conversationStats,
-      participants,
-      photoData,
-      questionAnswers
-    };
-    localStorage.setItem('uploadPageState', JSON.stringify(stateToSave));
-  }, [currentStep, selectedFileName, conversationStats, participants, photoData, questionAnswers]);
+    const checkDailyLimit = async () => {
+      try {
+        const apiUrl = import.meta.env.VITE_API_URL || '';
+        const endpoint = apiUrl.startsWith('/api') 
+          ? `${apiUrl}/can-analyze` 
+          : `${apiUrl}/api/can-analyze`;
 
-  // Nettoyer localStorage quand on quitte la page
-  useEffect(() => {
-    return () => {
-      // Ne pas nettoyer si on est en train d'analyser
-      if (currentStep !== 'analyzing') {
-        localStorage.removeItem('uploadPageState');
+        const response = await fetch(endpoint);
+        const data = await response.json();
+
+        if (!data.allowed) {
+          setDailyLimitReached(true);
+          setLimitData({
+            remainingTime: data.remainingTime,
+            lastAnalysis: data.lastAnalysis
+          });
+        }
+      } catch (err) {
+        console.error('Erreur vérification limite:', err);
+        // En cas d'erreur, autoriser l'accès
+      } finally {
+        setCheckingLimit(false);
       }
     };
-  }, [currentStep]);
+
+    checkDailyLimit();
+  }, []);
+
+  // Sauvegarder l'état dans localStorage à chaque changement (sauf analyzing)
+  useEffect(() => {
+    if (currentStep !== 'analyzing') {
+      const stateToSave = {
+        currentStep,
+        selectedFileName,
+        photoData,
+        questionAnswers
+      };
+      localStorage.setItem('uploadPageState', JSON.stringify(stateToSave));
+    }
+  }, [currentStep, selectedFileName, photoData, questionAnswers]);
+
+  // Si on a un analysisId actif, passer à l'étape analyzing
+  useEffect(() => {
+    if (analysisId && analyzing && currentStep !== 'analyzing') {
+      setCurrentStep('analyzing');
+    }
+  }, [analysisId, analyzing, currentStep]);
+
+  // Quand les résultats arrivent, naviguer vers le rapport
+  useEffect(() => {
+    if (results && !analyzing) {
+      console.log('✅ Résultats reçus, navigation vers le rapport');
+      
+      // Nettoyer localStorage
+      localStorage.removeItem('uploadPageState');
+      
+      // Naviguer vers la page de rapport
+      navigate('/report', { 
+        state: { 
+          results: results,
+          stats: results.stats,
+          photoPreviews: photoData.previews,
+          questionAnswers: questionAnswers
+        } 
+      });
+    }
+  }, [results, analyzing, navigate, photoData.previews, questionAnswers]);
 
   const handleFileSelect = (file) => {
     setSelectedFile(file);
@@ -64,15 +110,32 @@ export default function UploadPage() {
     
     if (!selectedFile || analyzing) return;
 
-    // Démarrer l'analyse en arrière-plan
-    startAnalysis(selectedFile);
-    
-    // Passer directement aux étapes suivantes
-    setCurrentStep('photos');
-  };
+    console.log('🚀 Démarrage de l\'analyse...');
 
-  const handleDetailsContinue = () => {
-    setCurrentStep('photos');
+    try {
+      // Démarrer l'analyse directement (le hook gère la demande de permission)
+      const analysisId = await startAnalysis(selectedFile);
+      
+      if (analysisId === 'legacy-mode') {
+        // Mode ancien backend: les résultats arrivent immédiatement
+        console.log('📊 Mode legacy: résultats immédiats, skip des étapes intermédiaires');
+        // Les résultats vont trigger l'effet qui navigue vers /report
+      } else if (analysisId) {
+        console.log('✅ Analyse démarrée avec ID:', analysisId);
+        // Nouveau mode: passer aux étapes suivantes
+        setCurrentStep('photos');
+      } else {
+        console.error('❌ Pas d\'analysisId retourné');
+      }
+    } catch (err) {
+      console.error('❌ Erreur démarrage analyse:', err);
+      
+      // Vérifier si c'est une erreur 429 (limite quotidienne)
+      if (err.message.includes('429') || err.message.includes('Limite')) {
+        // L'erreur sera gérée par le state error du hook
+        console.log('🚫 Limite quotidienne détectée');
+      }
+    }
   };
 
   const handlePhotosSubmit = (photos, previews) => {
@@ -93,37 +156,33 @@ export default function UploadPage() {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  // Quand on arrive à l'étape analyzing, on attend la fin de l'analyse
-  useEffect(() => {
-    if (currentStep === 'analyzing' && analyzing) {
-      waitForAnalysis().then((data) => {
-        if (data) {
-          // Récupérer les stats depuis la réponse de l'analyse
-          if (data.stats) {
-            setConversationStats(data.stats);
-            setParticipants(data.stats.participants || []);
-          }
-          
-          // Nettoyer localStorage avant de naviguer
-          localStorage.removeItem('uploadPageState');
-          
-          // Naviguer vers la page de rapport
-          navigate('/report', { 
-            state: { 
-              results: data,
-              stats: data.stats,
-              photoPreviews: photoData.previews,
-              questionAnswers: questionAnswers
-            } 
-          });
-        }
-      }).catch((err) => {
-        console.error('Erreur analyse:', err);
-        localStorage.removeItem('uploadPageState');
-        setCurrentStep('upload');
-      });
-    }
-  }, [currentStep, analyzing, waitForAnalysis, navigate, photoData.previews, questionAnswers]);
+  // Afficher le composant de limite si atteinte
+  if (checkingLimit) {
+    return (
+      <>
+        <Header />
+        <main className="upload-page">
+          <div className="upload-page-content">
+            <p style={{ textAlign: 'center', color: '#6b7280' }}>Vérification...</p>
+          </div>
+        </main>
+        <Footer />
+      </>
+    );
+  }
+
+  if (dailyLimitReached && limitData) {
+    return (
+      <>
+        <Header />
+        <DailyLimitReached 
+          remainingTime={limitData.remainingTime}
+          lastAnalysis={limitData.lastAnalysis}
+        />
+        <Footer />
+      </>
+    );
+  }
 
   return (
     <>
@@ -144,15 +203,6 @@ export default function UploadPage() {
                   onFileSelect={handleFileSelect}
                   disabled={analyzing}
                 />
-
-                {/* <button 
-                  type="button" 
-                  className="help-export-btn"
-                  onClick={openModal}
-                >
-                  <HelpCircle size={20} strokeWidth={2} />
-                  Comment exporter ?
-                </button> */}
 
                 {selectedFile && (
                   <button
@@ -178,7 +228,7 @@ export default function UploadPage() {
 
           {currentStep === 'photos' && (
             <PhotoUploadStep
-              participants={participants}
+              participants={[]}
               onPhotosSubmit={handlePhotosSubmit}
               onSkip={handlePhotosSkip}
             />
@@ -190,7 +240,11 @@ export default function UploadPage() {
             />
           )}
 
-          {currentStep === 'analyzing' && <AnalyzingState />}
+          {currentStep === 'analyzing' && (
+            <AnalyzingState 
+              message="Vous pouvez fermer cette page, vous recevrez une notification quand l'analyse sera prête !"
+            />
+          )}
         </div>
       </main>
       <Footer />

@@ -2,6 +2,12 @@ import { useState, useRef, useEffect } from 'react';
 import { Bot, Send, X } from 'lucide-react';
 import './AIChatbot.css';
 
+// Détection automatique de l'URL de l'API
+const API_URL = import.meta.env.VITE_API_URL || 
+  (import.meta.env.MODE === 'development' && typeof window !== 'undefined'
+    ? `${window.location.protocol}//${window.location.hostname}:3001`
+    : '/api');
+
 export default function AIChatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
@@ -43,8 +49,11 @@ export default function AIChatbot() {
 
     try {
       // Appel à l'API backend
-      const apiUrl = `http://${window.location.hostname}:3001/api/chat`;
-      const response = await fetch(apiUrl, {
+      const apiEndpoint = API_URL.startsWith('/api') 
+        ? `${API_URL}/chat` 
+        : `${API_URL}/api/chat`;
+        
+      const response = await fetch(apiEndpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

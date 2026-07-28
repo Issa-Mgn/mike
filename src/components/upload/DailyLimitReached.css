@@ -1,0 +1,360 @@
+.daily-limit-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background: #e6e8ec;
+}
+
+.daily-limit-card {
+  max-width: 600px;
+  width: 100%;
+  background: #e6e8ec;
+  border-radius: 32px;
+  padding: 60px 40px;
+  animation: slideUp 0.6s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========== HORLOGE RÉALISTE ========== */
+.realistic-clock {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  margin: 50px auto;
+  flex-shrink: 0; /* Empêche la compression */
+}
+
+.clock-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, #333, #111);
+  border-radius: 50%;
+  border: 10px solid #cec5c5;
+    inset: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.glass-cover {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  pointer-events: none;
+}
+
+.center-circle {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle, #666, #333);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+  z-index: 5;
+}
+
+.hand {
+  position: absolute;
+  background: #222;
+  border-radius: 2px;
+  left: 50%;
+  transform-origin: bottom center;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+  transition: transform 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.hour.hand {
+  width: 10px;
+  height: 90px;
+  top: 45px;
+  background: linear-gradient(to bottom, #1d6981, #444);
+  z-index: 3;
+}
+
+.minute.hand {
+  width: 6px;
+  height: 100px;
+  top: 45px;
+  background: linear-gradient(to bottom, #bbb, #666);
+  z-index: 4;
+}
+
+.second.hand {
+  width: 3px;
+  height: 100px;
+  top: 45px;
+  background: red;
+  z-index: 4;
+}
+
+.clock-numbers {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.clock-numbers .number {
+  position: absolute;
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+}
+
+.daily-limit-icon {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f59e0b, #ef4444);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 32px;
+  color: white;
+  box-shadow: 
+    8px 8px 16px rgba(163, 177, 198, 0.6),
+    -8px -8px 16px rgba(255, 255, 255, 0.5),
+    inset 4px 4px 8px rgba(0, 0, 0, 0.1);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.daily-limit-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 20px;
+  text-align: center;
+}
+
+.daily-limit-text {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #6b7280;
+  text-align: center;
+  margin: 0 0 40px;
+}
+
+.daily-limit-text strong {
+  color: #ef4444;
+  font-weight: 600;
+}
+
+.daily-limit-timer {
+  background: #e6e8ec;
+  border-radius: 24px;
+  padding: 32px 24px;
+  margin-bottom: 32px;
+  box-shadow: 
+    inset 8px 8px 16px rgba(163, 177, 198, 0.4),
+    inset -8px -8px 16px rgba(255, 255, 255, 0.7);
+}
+
+.timer-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #9ca3af;
+  text-align: center;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.timer-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.timer-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.timer-value {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e6e8ec;
+  border-radius: 16px;
+  font-size: 36px;
+  font-weight: 700;
+  color: #1f2937;
+  box-shadow: 
+    8px 8px 16px rgba(163, 177, 198, 0.6),
+    -8px -8px 16px rgba(255, 255, 255, 0.9);
+  font-variant-numeric: tabular-nums;
+  font-family: 'Courier New', monospace;
+}
+
+.timer-unit-label {
+  font-size: 12px;
+  color: #9ca3af;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.timer-separator {
+  font-size: 32px;
+  font-weight: 700;
+  color: #9ca3af;
+  margin: 0 4px;
+  animation: blink 1.5s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.timer-next-date {
+  text-align: center;
+  font-size: 14px;
+  color: #6b7280;
+  font-style: italic;
+}
+
+.daily-limit-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: #e6e8ec;
+  border-radius: 16px;
+  font-size: 13px;
+  color: #6b7280;
+  box-shadow: 
+    inset 4px 4px 8px rgba(163, 177, 198, 0.4),
+    inset -4px -4px 8px rgba(255, 255, 255, 0.7);
+}
+
+.daily-limit-info svg {
+  flex-shrink: 0;
+  color: #f59e0b;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .realistic-clock {
+    width: 240px;
+    height: 240px;
+    margin: 40px auto 32px;
+  }
+
+  .clock-face {
+    border: 8px solid #cec5c5;
+  }
+
+  .center-circle {
+    width: 16px;
+    height: 16px;
+  }
+
+  .hour.hand {
+    width: 8px;
+    height: 70px;
+    top: 45px;
+  }
+
+  .minute.hand {
+    width: 5px;
+    height: 80px;
+    top: 40px;
+  }
+
+  .second.hand {
+    width: 2px;
+    height: 90px;
+    top: 30px;
+  }
+
+  .clock-numbers .number {
+    font-size: 16px;
+  }
+
+  .daily-limit-card {
+    padding: 40px 24px;
+    border-radius: 24px;
+  }
+
+  .daily-limit-title {
+    font-size: 26px;
+  }
+
+  .daily-limit-text {
+    font-size: 15px;
+  }
+
+  .daily-limit-icon {
+    width: 80px;
+    height: 80px;
+  }
+
+  .daily-limit-icon svg {
+    width: 40px;
+    height: 40px;
+  }
+
+  .timer-display {
+    gap: 12px;
+  }
+
+  .timer-value {
+    width: 60px;
+    height: 60px;
+    font-size: 28px;
+  }
+
+  .timer-unit-label {
+    font-size: 11px;
+  }
+
+  .timer-separator {
+    font-size: 24px;
+  }
+
+  .daily-limit-info {
+    font-size: 12px;
+    padding: 12px 16px;
+  }
+}

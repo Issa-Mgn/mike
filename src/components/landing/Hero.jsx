@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import Globe from './Globe';
-import heroBackground from '../../assets/hero.png';
+import heroBackground from '../../assets/hero.webp';
 import './Hero.css';
 
 export default function Hero() {
